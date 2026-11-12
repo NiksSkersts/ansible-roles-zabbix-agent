@@ -1,0 +1,12 @@
+---
+zabbix_release: true
+zabbix_agent_param_server: 127.0.0.1
+zabbix_agent_param_sourceip: "{{ ansible_host }}"
+zabbix_agent_param_listenip: "{{ ansible_host }}"
+zabbix_agent_param_serveractive: 127.0.0.1
+zabbix_agent_tlspskidentity: zabbix-agent2
+zabbix_agent_tlspsk_secret: ''
+zabbix_agent_tlspskfile: /etc/zabbix/zabbix_agent2.psk
+configure_dmi: false
+configure_smartd: false
+configure_openzfs: false

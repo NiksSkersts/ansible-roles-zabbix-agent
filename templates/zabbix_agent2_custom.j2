@@ -1,0 +1,45 @@
+PidFile=/run/zabbix/zabbix_agent2.pid
+
+# Logging
+LogType=file
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=10
+DebugLevel=3
+
+# Passive monitoring
+Server={{ zabbix_agent_param_server }}
+SourceIP={{ zabbix_agent_param_sourceip }}
+ListenIP={{ zabbix_agent_param_listenip }}
+ListenPort=10050
+
+# Active monitoring
+ServerActive={{ agent_param_serveractive }}
+Hostname={{ inventory_hostname }}
+RefreshActiveChecks=5
+HeartbeatFrequency=60
+
+# Buffering
+BufferSend=5
+BufferSize=1000
+EnablePersistentBuffer=1
+PersistentBufferPeriod=7d
+PersistentBufferFile=/var/lib/zabbix/zabbix.buffer
+
+# Timeouts
+Timeout=10
+ForceActiveChecksOnStart=0
+
+# Security
+TLSConnect=psk
+TLSAccept=psk
+TLSPSKIdentity={{ zabbix_agent_tlspskidentity }}
+TLSPSKFile={{ zabbix_agent_tlspskfile }}
+UnsafeUserParameters=0
+
+# Sockets
+PluginSocket=/run/zabbix/agent.plugin.sock
+ControlSocket=/run/zabbix/agent.sock
+
+# Additional configuration
+Include=/etc/zabbix/zabbix_agent2.d/*.conf
+Include=/etc/zabbix/zabbix_agent2.d/plugins.d/*.conf

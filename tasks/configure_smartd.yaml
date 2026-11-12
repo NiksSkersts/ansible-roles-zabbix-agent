@@ -1,0 +1,16 @@
+---
+- name: Install smartmontools package
+  ansible.builtin.apt:
+    name:
+      - smartmontools
+    state: present
+
+# Smartmontools requires root access. Allow zabbix user to execute it as root.
+- name: Ensure Zabbix can access Smartmontools
+  become: true
+  notify:
+    - restart zabbix-agent
+  ansible.builtin.copy:
+    content: "zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl;"
+    dest: /etc/sudoers.d/zabbix_smartmontools
+    mode: "0440"

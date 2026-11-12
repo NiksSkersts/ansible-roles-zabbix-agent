@@ -1,0 +1,30 @@
+---
+- name: Deploy Zabbix agent configuration
+  notify: restart zabbix-agent
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - src: zabbix_systemd_override_content.j2
+      dest: /etc/default/zabbix-agent2
+      owner: root
+      group: root
+      mode: '0640'
+
+    - src: zabbix_agent2_custom.j2
+      dest: /etc/zabbix/zabbix_agent2_custom.conf
+      owner: root
+      group: zabbix
+      mode: '0640'
+
+- name: deploy PSK
+  notify: restart zabbix-agent
+  ansible.builtin.copy:
+    content: "{{ zabbix_agent_tlspsk_secret }}"
+    dest: "{{ zabbix_agent_tlspskfile }}"
+    owner: 'root'
+    group: 'zabbix'
+    mode: "0640"

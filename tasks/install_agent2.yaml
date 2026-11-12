@@ -1,0 +1,18 @@
+---
+- name: Install Zabbix packages
+  ansible.builtin.apt:
+    name:
+      - zabbix-agent2
+      - python3-cryptography
+    state: present
+
+- name: Create directory
+  loop:
+    - /var/lib/zabbix
+    - /usr/local/lib/zabbix/
+  ansible.builtin.file:
+    state: directory
+    path: "{{ item }}"
+    owner: zabbix
+    group: zabbix
+    mode: '0740'

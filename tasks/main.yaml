@@ -1,0 +1,21 @@
+---
+- name: Validation stage
+  ansible.builtin.import_tasks: validation.yaml
+
+- name: Install Zabbix Agent 2
+  ansible.builtin.import_tasks: install_agent2.yaml
+
+- name: Configure Zabbix Agent 2
+  ansible.builtin.import_tasks: configure_agent2.yaml
+
+- name: Configure DMI
+  when: configure_dmi is true
+  ansible.builtin.import_tasks: configure_dmi.yaml
+
+- name: Configure SMART
+  when: configure_smartd is true
+  ansible.builtin.import_tasks: configure_smartd.yaml
+
+- name: Configure OpenZFS
+  when: configure_openzfs is true
+  ansible.builtin.import_tasks: configure_openzfs.yaml

@@ -1,0 +1,15 @@
+---
+- name: Gather installed package facts
+  when: zabbix_release is true
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Assert package is installed
+  when: zabbix_release is true
+  loop:
+    - zabbix-release
+  ansible.builtin.assert:
+    that:
+      - item in ansible_facts.packages
+    fail_msg: "Package {{ item }} is not installed"
+    success_msg: "{{ item }} is installed"

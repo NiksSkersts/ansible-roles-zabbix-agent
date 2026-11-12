@@ -1,0 +1,7 @@
+---
+- name: Ensure Zabbix OpenZFS userparameters present
+  notify:
+    - restart zabbix-agent
+  ansible.builtin.copy:
+    src: ZoL_without_sudo.conf
+    dest: /etc/zabbix/zabbix_agent2.d/openzfs.conf
