@@ -11,6 +11,8 @@
   notify:
     - restart zabbix-agent
   ansible.builtin.copy:
-    content: "zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl;"
+    content: |
+      zabbix ALL=(ALL) NOPASSWD:/usr/sbin/smartctl
+      
     dest: /etc/sudoers.d/zabbix_smartmontools
     mode: "0440"

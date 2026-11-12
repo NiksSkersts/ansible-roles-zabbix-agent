@@ -4,6 +4,8 @@
   notify:
     - restart zabbix-agent
   ansible.builtin.copy:
-    content: "zabbix ALL=(ALL) NOPASSWD:/sys/firmware/dmi/tables/DMI;"
+    content: |
+      zabbix ALL=(ALL) NOPASSWD:/sys/firmware/dmi/tables/DMI
+      
     dest: /etc/sudoers.d/zabbix_dmi
     mode: "0440"
